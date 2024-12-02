@@ -55,5 +55,4 @@ solvePart2 xs = sum ds where
 day1Solver :: IO [Int]
 day1Solver = do
     input <- readInputs
-    putStrLn $ show input
     return [solvePart1 input, solvePart2 input]
