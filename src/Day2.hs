@@ -43,9 +43,10 @@ isSafe xs = all (\y -> signum y == signum (head ys) && abs y >= 1 && abs y <= 3)
 
 -- Returns if a report is safe (with a margin for error)
 isSafe' :: Report -> Bool
-isSafe' xs = any isSafe (xs : [deleteAt n xs | n <- [0.. length xs - 1]]) where
-    deleteAt 0 (x:xs) = xs
-    deleteAt n (x:xs) = x : deleteAt (n - 1) xs
+isSafe' xs = any isSafe (xs : [deleteAt n xs | n <- [0.. length xs - 1]]) 
+    where
+        deleteAt 0 (x:xs) = xs
+        deleteAt n (x:xs) = x : deleteAt (n - 1) xs
             
 -- The solver for part #1 of the puzzle
 solvePart1 :: [Report] -> Int
@@ -59,6 +60,4 @@ solvePart2 xs = length $ filter isSafe' xs
 day2Solver :: IO [Int]
 day2Solver = do
     input <- readInputs
-    let xs = [1, 3, 2, 4, 5]
-    putStrLn $ show (isSafe' xs)
     return [solvePart1 input, solvePart2 input]
