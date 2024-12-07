@@ -31,12 +31,17 @@ executable advent-of-code2024
                       Day2,
                       Day3,
                       Day4,
-                      Day5
+                      Day5,
+                      Day6,
+                      Day7
+
+    ghc-options:      -O2 -Wall
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    base ^>=4.16.3.0,
                       time,
-                      text
+                      text,
+                      containers
     hs-source-dirs:   src
     default-language: Haskell2010
