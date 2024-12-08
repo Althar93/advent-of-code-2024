@@ -17,5 +17,5 @@ main = do
     --executeAndPrintResults "Day 3"  day3Solver
     --executeAndPrintResults "Day 4"  day4Solver
     --executeAndPrintResults "Day 5"  day5Solver
-    executeAndPrintResults "Day 6"  day6Solver
-    --executeAndPrintResults "Day 7"  day7Solver
+    --executeAndPrintResults "Day 6"  day6Solver
+    executeAndPrintResults "Day 7"  day7Solver
