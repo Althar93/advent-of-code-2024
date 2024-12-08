@@ -33,7 +33,8 @@ executable advent-of-code2024
                       Day4,
                       Day5,
                       Day6,
-                      Day7
+                      Day7,
+                      Day8
 
     ghc-options:      -O2 -Wall
 
