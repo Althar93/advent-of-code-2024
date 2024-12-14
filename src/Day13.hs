@@ -106,11 +106,9 @@ solvePart2 :: [Machine] -> Integer
 solvePart2 ms = sum $ map tokens xs 
     where
         xs = catMaybes $ map (solve' 10000000000000) ms
-        --xs = catMaybes $ map (solve' 3700) ms
          
 -- The full solver
 day13Solver :: IO [Integer]
 day13Solver = do
     input <- readInputs
-    putStrLn $ show (solve' 3700 (input !! 0))
     return [solvePart1 input, solvePart2 input]
