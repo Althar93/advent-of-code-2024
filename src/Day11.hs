@@ -85,6 +85,4 @@ solvePart2 xs = sum $ map snd xs3
 day11Solver :: IO [Int]
 day11Solver = do
     input <- readInputs
-    putStrLn $ show input
-    putStrLn $ show (solvePart1 [125, 17])
     return [solvePart1 input, solvePart2 input]
