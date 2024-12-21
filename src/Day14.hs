@@ -88,28 +88,23 @@ drawRobots w h rs = mapM_ drawRow [0..h-1]
 -- Animated robot drawing
 drawRobotsN :: Int -> Int -> Int -> Int -> Int -> Float -> [Robot] -> IO ()
 drawRobotsN w h n nM k t rs = do
-    clearScreen
-    setCursorPosition 0 0
-    putStrLn $ "Iteration : " ++ show n ++ "/" ++ show nM
-    putStrLn $ replicate w '='
-    drawRobots w h rs'
-    putStrLn $ replicate w '='
-    sleep t
     case n >= nM of
         True  -> return ()
-        False -> drawRobotsN w h (n + k) nM k t rs
+        False -> case isTree rs' of
+            True  -> drawRobots w h rs'
+            False -> drawRobotsN w h (n + k) nM k t rs
     where
         rs' = moveRobots w h n rs
 
--- Returns whether is a tree
+-- Returns whether is a tree - assumes no robots overlap
 isTree :: [Robot] -> Bool
-isTree rs = all (\x -> length x > 3) ns
+isTree rs = all (\x -> length x == 1) ns
     where
-        ns = map (findNeighbours rs) rs
+        ns = map (findOverlap rs) rs
 
 -- Find neighbours
-findNeighbours :: [Robot] -> Robot -> [Robot]
-findNeighbours rs ((px0, py0), _) = filter (\((px, py), _) -> abs(px - px0) <= 1 && abs(py - py0) <= 1) rs
+findOverlap :: [Robot] -> Robot -> [Robot]
+findOverlap rs ((px0, py0), _) = filter (\((px, py), _) -> px0 == px && py0 == py) rs
 
 -- The solver for part #2 of the puzzle
 solvePart2 :: [Robot] -> Int
@@ -119,18 +114,7 @@ solvePart2 rs = 0
 day14Solver :: IO [Int]
 day14Solver = do
     input <- readInputs
-    -- Through trial and error found that after 39 iterations a pattern repeats every 101 iterations
+    -- Through trial and error found that after 39 iterations a vertical pattern repeats every 101 iterations
     -- Eventually the christmas tree appears after 7412 iterations
-    drawRobotsN 101 103 39 7412 101 0.1 input
+    drawRobotsN 101 103 39 10000 101 0.1 input
     return [solvePart1 input, solvePart2 input]
-
--- Patterns
--- 39  v
--- 99  h
--- 140 v
--- 202 h
--- 241 v
--- 305 h
--- 342 v
--- 408 h
--- 443 v
